@@ -12,7 +12,9 @@ class CashInventory:
 
     def _has_coin(self, coin_name):
         if coin_name in self._cash_inventory.keys():
-            return True
+            if self._cash_inventory.get(coin_name) > 0:
+                return True
+
         return False
 
     def remove(self, coin_name):

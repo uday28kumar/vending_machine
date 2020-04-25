@@ -12,7 +12,9 @@ class ItemInventory:
 
     def _has_item(self, item_name):
         if item_name in self._item_inventory.keys():
-            return True
+            if self._item_inventory.get(item_name) > 0:
+                return True
+
         return False
 
     def remove(self, item_name):
