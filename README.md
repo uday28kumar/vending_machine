@@ -10,3 +10,5 @@
  Return selected product and remaining change if any
  
  Allow reset operation for vending machine supplier.
+ 
+ ![Test Image 4](https://github.com/uday28kumar/vending_machine/blob/master/output.PNG)
