@@ -208,23 +208,24 @@ if __name__ == "__main__":
             vendingMachine.display_stats()
         elif choice == '2':
             item_name = input("Enter item name: ")
-            item_price = vendingMachine.select_item_and_get_price(
+            price = vendingMachine.select_item_and_get_price(
                 item_name.lower())
-            if(item_price == -1):
+            if(price == -1):
                 continue
 
             print("Item: "+item_name.lower() +
-                  " | Price: "+str(item_price), flush=True)
+                  " | Price: "+str(price), flush=True)
             buy = input("Want to buy (y/n): ")
             if buy == 'y' or buy == 'Y':
-                while item_price > vendingMachine.get_current_balance():
+                while price > vendingMachine.get_current_balance():
                     inserted_coin = input(
                         "Please insert coin-name (one at a time) || (n) to terminate: ")
-                    if(inserted_coin == 'n'):
+                    if(inserted_coin == 'n' or inserted_coin == 'N'):
                         break
+
                     if inserted_coin.lower() not in coin_value.keys():
                         print("invalid input!", flush=True)
-                        break
+                        continue
 
                     vendingMachine.insert_coin(inserted_coin.lower())
 
