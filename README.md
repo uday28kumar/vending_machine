@@ -6,6 +6,3 @@ You need to design a Vending Machine which
  Allow user to take refund by canceling the request.
  Return selected product and remaining change if any
  Allow reset operation for vending machine supplier.
-
-
-Read more: https://javarevisited.blogspot.com/2016/06/design-vending-machine-in-java.html#ixzz6Kejr0nni
