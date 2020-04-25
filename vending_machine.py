@@ -89,7 +89,6 @@ class VendingMachine:
                     change_coin.set_value(coin_value.get("dime"))
                     changes.append(change_coin)
                     continue
-
                 elif balance >= coin_value.get("nickel") and self._cash_inventory._has_coin("nickel"):
                     balance = balance - coin_value.get("nickel")
                     change_coin = Coin()
@@ -97,7 +96,6 @@ class VendingMachine:
                     change_coin.set_value(coin_value.get("nickel"))
                     changes.append(change_coin)
                     continue
-
                 elif balance >= coin_value.get("penny") and self._cash_inventory._has_coin("penny"):
                     balance = balance-coin_value.get("penny")
                     change_coin = Coin()
@@ -106,7 +104,6 @@ class VendingMachine:
                     changes.append(change_coin)
                     continue
                 else:
-                    print("Sorry I don't have sufficient change!!", flush=True)
                     return [None]
 
         return changes
@@ -177,6 +174,12 @@ class VendingMachine:
         bucket.set_changes(returned_changes)
         return bucket
 
+    def put_item(self, input_item, item_quantity):
+        self._item_inventory.put(input_item, int(item_quantity))
+
+    def put_coin(self, input_coin, coin_quantity):
+        self._cash_inventory.put(input_coin, int(coin_quantity))
+
     def display_bucket(self, bucket):
         """print bucket value"""
         print("Item: "+str(bucket.get_item().get_name()))
@@ -201,6 +204,8 @@ if __name__ == "__main__":
         print("2. Select item and buy.")
         print("3. Total sales amount.")
         print("4. Reset Machine.")
+        print("5. Put item into machine.")
+        print("6. Put coin into machine.")
 
         print("0. Exit", flush=True)
         choice = input("Enter choice: ")
@@ -236,5 +241,19 @@ if __name__ == "__main__":
             print(vendingMachine.get_total_sales(), flush=True)
         elif choice == '4':
             vendingMachine.reset()
+        elif choice == '5':
+            input_item = input("Enter item name: ")
+            if input_item.lower() not in item_price.keys():
+                print("Invalid input! Please insert item only from menu")
+                continue
+            item_quantity = input("Enter quantity: ")
+            vendingMachine.put_item(input_item, item_quantity)
+        elif choice == '6':
+            input_coin = input('Enter coin name: ')
+            if input_coin.lower() not in coin_value.keys():
+                print("Invalid input! Please insert coin only from menu")
+                continue
+            coin_quantity = input('Enter quantity: ')
+            vendingMachine.put_coin(input_coin, coin_quantity)
         else:
             exit()
