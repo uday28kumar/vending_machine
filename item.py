@@ -4,17 +4,17 @@ class Item:
         self._name = ""
         self._price = ""
 
-    def get_name(self):
+    def getName(self):
         return self._name
 
-    def set_name(self, name):
+    def setName(self, name):
         self._name = name
 
-    def get_price(self):
+    def getPrice(self):
         return self._price
 
-    def set_price(self, price):
+    def setPrice(self, price):
         self._price = price
 
-    def to_string(self):
+    def toString(self):
         return "name: "+str(self._name)+" price: "+str(self._price)

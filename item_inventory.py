@@ -1,32 +1,32 @@
 class ItemInventory:
     def __init__(self):
         super().__init__()
-        self._item_inventory = {}
+        self._itemInventory = {"coke": 0, "pepsi": 0, "soda": 0}
 
-    def add(self, item_name):
-        if(self._has_item(item_name)):
-            count = self._item_inventory.get(item_name)
-            self._item_inventory[item_name] = count + 1
+    def add(self, itemName):
+        if(self.hasItem(itemName)):
+            count = self._itemInventory.get(itemName)
+            self._itemInventory[itemName] = count + 1
         else:
-            self._item_inventory[item_name] = 1
+            self._itemInventory[itemName] = 1
 
-    def _has_item(self, item_name):
-        if item_name in self._item_inventory.keys():
-            if self._item_inventory.get(item_name) > 0:
+    def hasItem(self, itemName):
+        if itemName in self._itemInventory.keys():
+            if self._itemInventory.get(itemName) > 0:
                 return True
 
         return False
 
-    def remove(self, item_name):
-        if self._has_item(item_name):
-            count = self._item_inventory.get(item_name)
-            self._item_inventory[item_name] = count - 1
+    def remove(self, itemName):
+        if self.hasItem(itemName):
+            count = self._itemInventory.get(itemName)
+            self._itemInventory[itemName] = count - 1
 
     def clear(self):
-        self._item_inventory.clear()
+        self._itemInventory.clear()
 
-    def put(self, item_name, quantity):
-        self._item_inventory[item_name] = quantity
+    def put(self, itemName, quantity):
+        self._itemInventory[itemName] = quantity
 
     def display(self):
-        print(self._item_inventory)
+        print(self._itemInventory)

@@ -4,17 +4,17 @@ class Coin:
         self._name = ""
         self._value = ""
 
-    def get_name(self):
+    def getName(self):
         return self._name
 
-    def set_name(self, name):
+    def setName(self, name):
         self._name = name
 
-    def get_value(self):
+    def getValue(self):
         return self._value
 
-    def set_value(self, price):
+    def setValue(self, price):
         self._value = price
 
-    def to_string(self):
+    def toString(self):
         return "name: "+str(self._name)+" value: "+str(self._value)

@@ -4,14 +4,14 @@ class Bucket:
         self._item = None
         self._changes = []
 
-    def get_item(self):
+    def getItem(self):
         return self._item
 
-    def set_item(self, item):
+    def setItem(self, item):
         self._item = item
 
-    def get_changes(self):
+    def getChanges(self):
         return self._changes
 
-    def set_changes(self, changes):
+    def setChanges(self, changes):
         self._changes = changes
