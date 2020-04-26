@@ -93,8 +93,13 @@ class VendingMachine:
                         "penny")+1
                     continue
                 else:
-                    return [None]
+                    changes.clear()
+                    changes.append(None)
+                    break
 
+            # Since this function is for checking the change,
+            # I am putting back the currently deducted coin to
+            # cash inventory
             for coinName in currentlyDeducted.keys():
                 self._cashInventory.addBulk(
                     coinName, currentlyDeducted.get(coinName))
