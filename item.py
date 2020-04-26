@@ -1,8 +1,8 @@
 class Item:
     def __init__(self):
         super().__init__()
-        self._name = ""
-        self._price = ""
+        self._name = None
+        self._price = 0
 
     def getName(self):
         return self._name

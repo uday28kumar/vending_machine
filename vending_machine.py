@@ -34,44 +34,18 @@ class VendingMachine:
             for j in range(5):
                 self._cashInventory.add(coinName)
 
-    def displayStats(self):
-        """display the current stat of machine"""
-        print("Items: available number: ", flush=True)
-        self._itemInventory.display()
-        print("Coin: available number: ", flush=True)
-        self._cashInventory.display()
+    def _refund(self):
+        """refund change if change not available"""
+        refund = self._currentlyInsertedCoins
+        self._updateCashInventory(refund)
+        return refund
 
-    def reset(self):
-        """reset the vending machine"""
-        self._cashInventory = CashInventory()
-        self._itemInventory = ItemInventory()
-        self._totalSales = 0
-        self._currentItem = None
-        self._currentBalance = 0
-
-    def getCurrentBalance(self):
-        """return current balance inserted"""
-        return self._currentBalance
-
-    def selectItemAndGetPrice(self, itemName):
-        """return price of input item"""
-        if self._itemInventory.hasItem(itemName):
-            self._currentItem = Item()
-            self._currentItem.setName(itemName)
-            self._currentItem.setPrice(itemPrice.get(itemName))
-            return self._currentItem.getPrice()
-        print("Item sold out! Please try other item.")
-        return -1
-
-    def insertCoin(self, coinName):
-        """insert coins and calculate current balance"""
-        value = coinValue.get(coinName)
-        i_coin = Coin()
-        i_coin.setName(coinName)
-        i_coin.setValue(value)
-        self._currentlyInsertedCoins.append(i_coin)
-        self._currentBalance = self._currentBalance + value
-        self._cashInventory.add(coinName)
+    def _collectChange(self):
+        """collect change after buy"""
+        changeAmount = self._currentBalance - self._currentItem.getPrice()
+        change = self._getChange(changeAmount)
+        self._updateCashInventory(change)
+        return change
 
     def _getChange(self, amount):
         """return change of input amount"""
@@ -119,10 +93,11 @@ class VendingMachine:
                         "penny")+1
                     continue
                 else:
-                    for coinName in currentlyDeducted.keys():
-                        self._cashInventory.addBulk(
-                            coinName, currentlyDeducted.get(coinName))
                     return [None]
+
+            for coinName in currentlyDeducted.keys():
+                self._cashInventory.addBulk(
+                    coinName, currentlyDeducted.get(coinName))
 
         return changes
 
@@ -134,9 +109,10 @@ class VendingMachine:
 
     def _hasSufficentChangeForAmount(self, amount):
         """check whether the machine has sufficient change or not"""
-        if len(self._getChange(amount)) == 0:
+        withChange = self._getChange(amount)
+        if len(withChange) == 0:
             return True
-        if self._getChange(amount)[0] == None:
+        if withChange[0] == None:
             return False
         return True
 
@@ -165,22 +141,54 @@ class VendingMachine:
         for coin in change:
             self._cashInventory.remove(coin.getName())
 
+    def reset(self):
+        """reset the vending machine"""
+        self._cashInventory = CashInventory()
+        self._itemInventory = ItemInventory()
+        self._totalSales = 0
+        self._currentItem = None
+        self._currentBalance = 0
+
+    def putItem(self, inputItem, quantity):
+        self._itemInventory.put(inputItem, int(quantity))
+
+    def putCoin(self, inputCoin, quantity):
+        self._cashInventory.put(inputCoin, int(quantity))
+
+    def displayStats(self):
+        """display the current stat of machine"""
+        print("Items: available number: ", flush=True)
+        self._itemInventory.display()
+        print("Coin: available number: ", flush=True)
+        self._cashInventory.display()
+
+    def getCurrentBalance(self):
+        """return current balance inserted"""
+        return self._currentBalance
+
+    def selectItemAndGetPrice(self, itemName):
+        """return price of input item"""
+        if self._itemInventory.hasItem(itemName):
+            self._currentItem = Item()
+            self._currentItem.setName(itemName)
+            self._currentItem.setPrice(itemPrice.get(itemName))
+            return self._currentItem.getPrice()
+        print("Item sold out! Please try other item.")
+        return -1
+
+    def insertCoin(self, coinName):
+        """insert coins and calculate current balance"""
+        value = coinValue.get(coinName)
+        i_coin = Coin()
+        i_coin.setName(coinName)
+        i_coin.setValue(value)
+        self._currentlyInsertedCoins.append(i_coin)
+        self._currentBalance = self._currentBalance + value
+        self._cashInventory.add(coinName)
+
     def getTotalSales(self):
         """return total sales amount"""
         return self._totalSales
-
-    def _refund(self):
-        """refund change if change not available"""
-        refund = self._currentlyInsertedCoins
-        self._updateCashInventory(refund)
-        return refund
-
-    def _collectChange(self):
-        """collect change after buy"""
-        changeAmount = self._currentBalance - self._currentItem.getPrice()
-        change = self._getChange(changeAmount)
-        self._updateCashInventory(change)
-        return change
 
     def collectItemAndChange(self):
         """collect item and change after buy in bucket"""
@@ -198,12 +206,6 @@ class VendingMachine:
         self._currentItem = None
         self._currentlyInsertedCoins = []
         return bucket
-
-    def putItem(self, inputItem, quantity):
-        self._itemInventory.put(inputItem, int(quantity))
-
-    def putCoin(self, inputCoin, quantity):
-        self._cashInventory.put(inputCoin, int(quantity))
 
     def displayBucket(self, bucket):
         """print bucket value"""

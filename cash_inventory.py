@@ -12,6 +12,7 @@ class CashInventory:
             self._cashInventory[coinName] = 1
 
     def addBulk(self, coinName, quantity):
+        print(quantity)
         self._cashInventory[coinName] = self._cashInventory.get(
             coinName)+quantity
 
