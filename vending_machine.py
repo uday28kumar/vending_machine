@@ -170,7 +170,7 @@ class VendingMachine:
         return self._totalSales
 
     def _refund(self):
-        print("refund"+str(self._currentBalance))
+        """refund change if change not available"""
         refund = self._currentlyInsertedCoins
         self._updateCashInventory(refund)
         return refund
