@@ -155,10 +155,10 @@ class VendingMachine:
         self._currentBalance = 0
 
     def putItem(self, inputItem, quantity):
-        self._itemInventory.put(inputItem, int(quantity))
+        self._itemInventory.put(inputItem, quantity)
 
     def putCoin(self, inputCoin, quantity):
-        self._cashInventory.put(inputCoin, int(quantity))
+        self._cashInventory.put(inputCoin, quantity)
 
     def displayStats(self):
         """display the current stat of machine"""
@@ -282,14 +282,20 @@ if __name__ == "__main__":
             if inputItem.lower() not in itemPrice.keys():
                 print("Invalid input! Please insert item only from menu")
                 continue
-            quantity = input("Enter quantity: ")
+            quantity = int(input("Enter quantity: "))
+            if quantity < 0:
+                print("Bakchod ho ka ? Quantity -ve nhi hota hai!")
+                continue
             vendingMachine.putItem(inputItem, quantity)
         elif choice == '6':
             inputCoin = input('Enter coin name: ')
             if inputCoin.lower() not in coinValue.keys():
                 print("Invalid input! Please insert coin only from menu")
                 continue
-            quantity = input('Enter quantity: ')
+            quantity = int(input('Enter quantity: '))
+            if quantity < 0:
+                print("Bakchod ho ka ? Quantity -ve nhi hota hai!")
+                continue
             vendingMachine.putCoin(inputCoin, quantity)
         else:
             exit()
