@@ -12,3 +12,5 @@
  Allow reset operation for vending machine supplier.
  
  ![Test Image 4](https://github.com/uday28kumar/vending_machine/blob/master/output.PNG)
+ 
+ ![Test Image 5](https://github.com/uday28kumar/vending_machine/blob/master/output2.PNG)
