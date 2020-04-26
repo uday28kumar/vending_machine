@@ -1,8 +1,8 @@
 class Coin:
     def __init__(self):
         super().__init__()
-        self._name = ""
-        self._value = ""
+        self._name = None
+        self._value = 0
 
     def getName(self):
         return self._name
