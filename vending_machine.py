@@ -184,10 +184,10 @@ class VendingMachine:
     def insertCoin(self, coinName):
         """insert coins and calculate current balance"""
         value = coinValue.get(coinName)
-        i_coin = Coin()
-        i_coin.setName(coinName)
-        i_coin.setValue(value)
-        self._currentlyInsertedCoins.append(i_coin)
+        iCoin = Coin()
+        iCoin.setName(coinName)
+        iCoin.setValue(value)
+        self._currentlyInsertedCoins.append(iCoin)
         self._currentBalance = self._currentBalance + value
         self._cashInventory.add(coinName)
 
